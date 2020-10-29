@@ -13,8 +13,15 @@ class Network():
   def __init__(self, sizes):
     self.sizes = sizes
     self.num_layers = len(sizes)
-    self.weights = [np.random.randn(y, x) for (x, y) in zip(sizes[:-1], sizes[1:])]
-    self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
+    self.better_weight_bias()
+  
+  def bad_weight_bias(self):
+    self.weights = [np.random.randn(y, x) for (x, y) in zip(self.sizes[:-1], self.sizes[1:])]
+    self.biases = [np.random.randn(y, 1) for y in self.sizes[1:]]
+
+  def better_weight_bias(self):
+    self.weights = [np.random.randn(y, x) / np.sqrt(x) for (x, y) in zip(self.sizes[:-1], self.sizes[1:])]
+    self.biases = [np.random.randn(y, 1) for y in self.sizes[1:]]
 
   def feedforward(self, a):
     for b, w in zip(self.biases, self.weights):
