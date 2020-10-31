@@ -18,7 +18,8 @@ step 2: compile
 '''
 model = tf.keras.Sequential([
   tf.keras.layers.Flatten(input_shape=(28, 28)),
-  tf.keras.layers.Dense(30, activation='relu'),
+  tf.keras.layers.Dense(300, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
   tf.keras.layers.Dense(10)
 ])
 
@@ -29,7 +30,7 @@ model.compile(
 )
 
 # train
-model.fit(train_img, train_label, epochs=10)
+model.fit(train_img, train_label, epochs=30, batch_size=10)
 
 # evaluate
 test_loss, test_acc = model.evaluate(test_img, test_label, verbose=2)
